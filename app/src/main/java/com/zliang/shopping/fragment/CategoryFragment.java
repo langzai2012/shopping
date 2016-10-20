@@ -197,6 +197,7 @@ public class CategoryFragment extends Fragment {
             public void OnItemClick(View view, int position) {
                 currentPage = 1;
                 state = STATE_NORMAL;
+                mCategoryId = categories.get(position).getId();
                 requestWares(categories.get(position).getId());
             }
         });
