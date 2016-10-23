@@ -3,7 +3,9 @@ package com.zliang.shopping;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,7 +20,10 @@ import com.zliang.shopping.fragment.CategoryFragment;
 import com.zliang.shopping.fragment.HomeFragment;
 import com.zliang.shopping.fragment.HotFragment;
 import com.zliang.shopping.fragment.MineFragment;
+import com.zliang.shopping.widget.CnToolBar;
 import com.zliang.shopping.widget.FragmentTabHost;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private LayoutInflater mInflater;
     private FragmentTabHost mTabHost;
     private List<Tab> tabs = new ArrayList<>(5);
+
+    private CartFragment mCartFragment;
+    private CnToolBar mToolVBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +71,34 @@ public class MainActivity extends AppCompatActivity {
         //去除分割线
         mTabHost.getTabWidget().setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
         mTabHost.setCurrentTab(0);
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if (tabId == getString(R.string.cart)) {
+                    refreshCartFragmentData();
+                } else {
+                    mToolVBar.showSearchView();
+                    mToolVBar.hideTitleView();
+                    mToolVBar.getRightButton().setVisibility(View.GONE);
+                }
+            }
+        });
+
+        mToolVBar = (CnToolBar) findViewById(R.id.toolbar);
 
 
+    }
+
+    private void refreshCartFragmentData() {
+        if (mCartFragment == null) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(getString(R.string.cart));
+            if (fragment != null) {
+                mCartFragment = (CartFragment) fragment;
+                mCartFragment.refreshData();
+            }
+        } else {
+            mCartFragment.refreshData();
+        }
     }
 
     private View buildIndicator(Tab tab) {

@@ -29,7 +29,7 @@
 
     <!--是否需要添加style @android:style/Widget.Material.Toolbar.Button.Navigation  源码style需要api21以上 -->
 
-    <ImageButton
+    <Button
         android:id="@+id/toolbar_rightButton"
         style="@android:style/Widget.Material.Toolbar.Button.Navigation"
         android:layout_width="wrap_content"

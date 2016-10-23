@@ -6,8 +6,6 @@ import android.util.SparseArray;
 
 import com.google.gson.reflect.TypeToken;
 import com.zliang.shopping.bean.ShoppingCart;
-import com.zliang.shopping.utils.JSONUtil;
-import com.zliang.shopping.utils.PreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,10 @@ public class CartProvider {
     public void put(ShoppingCart cart) {
 
         long carId = cart.getId();
+        int testId = Integer.parseInt(String.valueOf(carId));
+        LogUtils.e("testId:" + testId);
+
+        LogUtils.e("datas.size:" + datas.size());
         ShoppingCart temp = datas.get(Integer.parseInt(String.valueOf(carId)));
         if (temp != null) {
             temp.setCount(temp.getCount() + 1);
@@ -63,11 +65,13 @@ public class CartProvider {
 
     private void listToSparse() {
         List<ShoppingCart> carts = getDataFromLocal();
-        if (datas != null && datas.size() > 0) {
+        if (datas != null) {
             for (ShoppingCart cart : carts) {
                 datas.put(Integer.valueOf(String.valueOf(cart.getId())), cart);
             }
         }
+        LogUtils.e("datas.size:" + datas.size());
+
     }
 
     private List<ShoppingCart> sparseToList() {
@@ -86,6 +90,7 @@ public class CartProvider {
             carts = JSONUtil.fromJson(json, new TypeToken<List<ShoppingCart>>() {
             }.getType());
         }
+        LogUtils.e("carts.size:" + carts.size());
         return carts;
     }
 }

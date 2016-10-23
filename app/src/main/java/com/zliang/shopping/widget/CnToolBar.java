@@ -1,8 +1,9 @@
 package com.zliang.shopping.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -10,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class CnToolBar extends Toolbar {
     private View mView;
     private TextView mTextTitle;
     private EditText mSearchView;
-    private ImageButton mRightImageButton;
+    private Button mRightButton;
 
     public CnToolBar(Context context) {
         this(context, null);
@@ -63,11 +65,15 @@ public class CnToolBar extends Toolbar {
             mView = mInflater.inflate(R.layout.toolbar, null);
             mTextTitle = (TextView) mView.findViewById(R.id.toolbar_title);
             mSearchView = (EditText) mView.findViewById(R.id.toolbar_searchview);
-            mRightImageButton = (ImageButton) mView.findViewById(R.id.toolbar_rightButton);
+            mRightButton = (Button) mView.findViewById(R.id.toolbar_rightButton);
             LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL);
             addView(mView, lp);
         }
 
+    }
+
+    public Button getRightButton() {
+        return mRightButton;
     }
 
     @Override
@@ -93,8 +99,8 @@ public class CnToolBar extends Toolbar {
     }
 
     public void setRightButtonIconListener(OnClickListener li) {
-        if (mRightImageButton != null) {
-            mRightImageButton.setOnClickListener(li);
+        if (mRightButton != null) {
+            mRightButton.setOnClickListener(li);
         }
     }
 
@@ -117,9 +123,9 @@ public class CnToolBar extends Toolbar {
     }
 
     private void setRightButtonIcon(Drawable icon) {
-        if (mRightImageButton != null) {
-            mRightImageButton.setImageDrawable(icon);
-            mRightImageButton.setVisibility(View.VISIBLE);
+        if (mRightButton != null) {
+            mRightButton.setBackgroundDrawable(icon);
+            mRightButton.setVisibility(View.VISIBLE);
         }
     }
 }
