@@ -5,12 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zliang.shopping.R;
-import com.zliang.shopping.bean.Page;
+import com.zliang.shopping.bean.Ware;
 
 import java.util.List;
 
@@ -19,9 +18,9 @@ import java.util.List;
  */
 public class HotGoodsAdapter extends RecyclerView.Adapter<HotGoodsAdapter.ViewHoloder> {
 
-    private List<Page> datas;
+    private List<Ware> datas;
 
-    public HotGoodsAdapter(List<Page> datas) {
+    public HotGoodsAdapter(List<Ware> datas) {
         this.datas = datas;
     }
 
@@ -34,7 +33,7 @@ public class HotGoodsAdapter extends RecyclerView.Adapter<HotGoodsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHoloder holder, int position) {
-        Page page = datas.get(position);
+        Ware page = datas.get(position);
         holder.simpleDraweeView.setImageURI(Uri.parse(page.getImgUrl()));
         holder.text_title.setText(page.getName());
         holder.text_price.setText(page.getPrice() + "");
@@ -58,7 +57,7 @@ public class HotGoodsAdapter extends RecyclerView.Adapter<HotGoodsAdapter.ViewHo
         }
     }
 
-    public List<Page> getDatas() {
+    public List<Ware> getDatas() {
         return datas;
     }
 
@@ -68,11 +67,11 @@ public class HotGoodsAdapter extends RecyclerView.Adapter<HotGoodsAdapter.ViewHo
         }
     }
 
-    public void addDatas(List<Page> data) {
+    public void addDatas(List<Ware> data) {
         addDatas(0, data);
     }
 
-    public void addDatas(int postion, List<Page> data) {
+    public void addDatas(int postion, List<Ware> data) {
         if (datas != null) {
             if (data != null && data.size() > 0) {
                 datas.addAll(data);

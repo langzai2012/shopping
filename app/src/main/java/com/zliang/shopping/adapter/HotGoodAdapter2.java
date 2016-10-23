@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.zliang.shopping.R;
-import com.zliang.shopping.bean.Page;
 import com.zliang.shopping.bean.ShoppingCart;
+import com.zliang.shopping.bean.Ware;
 import com.zliang.shopping.utils.CartProvider;
 import com.zliang.shopping.utils.ToastUtils;
 
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/10/16 0016.
  */
-public class HotGoodAdapter2 extends SimpleAdapter<Page> {
+public class HotGoodAdapter2 extends SimpleAdapter<Ware> {
     private CartProvider mCartProvider;
 
     public HotGoodAdapter2(Context context, int layoutResId, List datas) {
@@ -28,7 +28,7 @@ public class HotGoodAdapter2 extends SimpleAdapter<Page> {
     }
 
     @Override
-    protected void convert(BaseViewHoloder viewHolder, final Page item) {
+    protected void convert(BaseViewHoloder viewHolder, final Ware item) {
         SimpleDraweeView simpleDraweeView = viewHolder.getView(R.id.drawee_view);
         simpleDraweeView.setImageURI(Uri.parse(item.getImgUrl()));
         TextView text_title = viewHolder.getView(R.id.text_title);
@@ -47,7 +47,7 @@ public class HotGoodAdapter2 extends SimpleAdapter<Page> {
         });
     }
 
-    private ShoppingCart convertData(Page ware) {
+    private ShoppingCart convertData(Ware ware) {
         ShoppingCart cart = new ShoppingCart();
         cart.setId(ware.getId());
         cart.setDescription(ware.getDescription());

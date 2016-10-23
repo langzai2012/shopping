@@ -13,6 +13,7 @@ public class HotGoods implements Serializable {
     private int currentPage;
     private int pageSize;
     private int totalPage;
+    private List<Ware> list;
 
     public int getTotalPage() {
         return totalPage;
@@ -21,8 +22,6 @@ public class HotGoods implements Serializable {
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
     }
-
-    private List<Page> list;
 
     public int getTotalCount() {
         return totalCount;
@@ -48,11 +47,11 @@ public class HotGoods implements Serializable {
         this.pageSize = pageSize;
     }
 
-    public List<Page> getList() {
+    public List<Ware> getList() {
         return list;
     }
 
-    public void setList(List<Page> list) {
+    public void setList(List<Ware> list) {
         this.list = list;
     }
 

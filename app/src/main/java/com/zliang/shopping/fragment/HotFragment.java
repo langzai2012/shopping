@@ -19,9 +19,8 @@ import com.zliang.shopping.Config.ConstantsValues;
 import com.zliang.shopping.R;
 import com.zliang.shopping.adapter.DividerItemDecoration;
 import com.zliang.shopping.adapter.HotGoodAdapter2;
-import com.zliang.shopping.adapter.HotGoodsAdapter;
 import com.zliang.shopping.bean.HotGoods;
-import com.zliang.shopping.bean.Page;
+import com.zliang.shopping.bean.Ware;
 import com.zliang.shopping.http.BaseCallBack;
 import com.zliang.shopping.http.OkHttpHelper;
 import com.zliang.shopping.utils.LogUtils;
@@ -131,7 +130,7 @@ public class HotFragment extends Fragment {
         });
     }
 
-    private void showData(List<Page> list) {
+    private void showData(List<Ware> list) {
         switch (state) {
             case STATE_NORMAL:
 //                mAdapter = new HotGoodsAdapter(list);
