@@ -38,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/checkbox_all"
             android:text="合计"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/btn_order"
@@ -51,8 +51,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:minHeight="40dp"
-            android:minWidth="120dp"
-            android:text="去结算" />
+            android:minWidth="80dp"
+            android:text="去结算"
+            android:textSize="14sp" />
 
 
         <Button
@@ -62,11 +63,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:minHeight="60dp"
-            android:minWidth="120dp"
+            android:minHeight="40dp"
+            android:minWidth="80dp"
             android:text="删除"
             android:visibility="gone" />
-
 
     </RelativeLayout>
 

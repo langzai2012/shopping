@@ -9,7 +9,7 @@ public class Page extends BaseBean implements Serializable {
     private String name;
     private String imgUrl;
     private String description;
-    private String price;
+    private Float price;
     private int sale;
 
     public String getName() {
@@ -36,11 +36,11 @@ public class Page extends BaseBean implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -50,5 +50,16 @@ public class Page extends BaseBean implements Serializable {
 
     public void setSale(int sale) {
         this.sale = sale;
+    }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "name='" + name + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", sale=" + sale +
+                '}';
     }
 }

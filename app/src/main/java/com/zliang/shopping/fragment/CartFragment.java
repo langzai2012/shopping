@@ -1,5 +1,6 @@
 package com.zliang.shopping.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by Ivan on 15/9/22.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements View.OnClickListener {
 
     @ViewInject(R.id.recyler_view)
     private RecyclerView mRecyclerView;
@@ -51,6 +52,9 @@ public class CartFragment extends Fragment {
     private CartAdapter mCartAdapter;
     private CnToolBar mToolBar;
 
+    private final int STATE_EDIT = 1;
+    public final int STATE_COMPLETE = 2;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,12 +62,22 @@ public class CartFragment extends Fragment {
         ViewUtils.inject(this, view);
         mCartProvider = new CartProvider(getContext());
         showData();
+        initListener();
         return view;
+    }
+
+    private void initListener() {
+        mBtnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCartAdapter.deleteCart();
+            }
+        });
     }
 
     private void showData() {
         List<ShoppingCart> carts = mCartProvider.getAll();
-        mCartAdapter = new CartAdapter(getContext(), carts);
+        mCartAdapter = new CartAdapter(getContext(), carts, mCheckBox, mTextTotal);
         mRecyclerView.setAdapter(mCartAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
@@ -76,10 +90,7 @@ public class CartFragment extends Fragment {
         if (context instanceof MainActivity) {
             MainActivity activity = (MainActivity) context;
             mToolBar = (CnToolBar) activity.findViewById(R.id.toolbar);
-            mToolBar.hideSearchView();
-            mToolBar.setTitle(R.string.cart);
-            mToolBar.getRightButton().setVisibility(View.VISIBLE);
-            mToolBar.getRightButton().setText("编辑");
+            changeToolbar();
         }
     }
 
@@ -89,5 +100,51 @@ public class CartFragment extends Fragment {
             List<ShoppingCart> carts = mCartProvider.getAll();
             mCartAdapter.addDatas(carts);
         }
+    }
+
+    public void changeToolbar() {
+        mToolBar.hideSearchView();
+        mToolBar.setTitle(R.string.cart);
+        mToolBar.getRightButton().setVisibility(View.VISIBLE);
+        mToolBar.getRightButton().setText("编辑");
+        mToolBar.getRightButton().setOnClickListener(this);
+        mToolBar.getRightButton().setTag(STATE_EDIT);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int action = (int) v.getTag();
+        if (action == STATE_EDIT) {
+            showDeleteControl();
+        } else if (action == STATE_COMPLETE) {
+            hideDeleteControl();
+        }
+    }
+
+    private void hideDeleteControl() {
+        mToolBar.getRightButton().setText("编辑");
+        mTextTotal.setVisibility(View.VISIBLE);
+        mBtnOrder.setVisibility(View.VISIBLE);
+        mBtnDel.setVisibility(View.GONE);
+
+        mCartAdapter.checkAll(true);
+        mCheckBox.setChecked(true);
+        mToolBar.getRightButton().setTag(STATE_EDIT);
+
+        mCartAdapter.showTotalPrice();
+
+    }
+
+    private void showDeleteControl() {
+        mToolBar.getRightButton().setText("完成");
+        mTextTotal.setVisibility(View.GONE);
+        mBtnOrder.setVisibility(View.GONE);
+        mBtnDel.setVisibility(View.VISIBLE);
+
+        mCartAdapter.checkAll(false);
+        mCheckBox.setChecked(false);
+
+        mToolBar.getRightButton().setTag(STATE_COMPLETE);
+
     }
 }

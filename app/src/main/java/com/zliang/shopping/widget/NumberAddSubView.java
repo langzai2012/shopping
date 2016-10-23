@@ -122,10 +122,10 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
     }
 
     private void numberSub() {
-        if (value > 0) {
+        if (value > 1) {
             value -= 1;
         } else {
-            value = 0;
+            value = 1;
         }
         mTvNumber.setText(value + "");
     }

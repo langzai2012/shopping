@@ -9,7 +9,7 @@ public class Ware extends BaseBean implements Serializable {
     private String name;
     private String imgUrl;
     private String description;
-    private String price;
+    private Float price;
     private String sale;
 
     public String getName() {
@@ -36,11 +36,11 @@ public class Ware extends BaseBean implements Serializable {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

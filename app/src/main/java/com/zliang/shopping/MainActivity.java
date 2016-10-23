@@ -95,10 +95,13 @@ public class MainActivity extends AppCompatActivity {
             if (fragment != null) {
                 mCartFragment = (CartFragment) fragment;
                 mCartFragment.refreshData();
+                mCartFragment.changeToolbar();
             }
         } else {
             mCartFragment.refreshData();
+            mCartFragment.changeToolbar();
         }
+
     }
 
     private View buildIndicator(Tab tab) {

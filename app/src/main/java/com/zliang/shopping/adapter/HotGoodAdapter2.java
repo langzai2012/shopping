@@ -34,7 +34,7 @@ public class HotGoodAdapter2 extends SimpleAdapter<Page> {
         TextView text_title = viewHolder.getView(R.id.text_title);
         text_title.setText(item.getName());
         TextView text_price = viewHolder.getView(R.id.text_price);
-        text_price.setText(item.getPrice());
+        text_price.setText(item.getPrice() + "");
 
         Button btnAdd = viewHolder.getView(R.id.btn_add);
         btnAdd.setOnClickListener(new View.OnClickListener() {

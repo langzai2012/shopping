@@ -26,7 +26,7 @@ public class WareAdapter extends SimpleAdapter<Ware> {
         TextView title = viewHolder.getView(R.id.tv_title);
         title.setText(item.getName());
         TextView price = viewHolder.getView(R.id.tv_price);
-        price.setText(item.getPrice());
+        price.setText(item.getPrice()+"");
     }
 
 
