@@ -12,7 +12,6 @@ import com.squareup.picasso.Picasso;
 import com.zliang.shopping.R;
 import com.zliang.shopping.bean.Campaign;
 import com.zliang.shopping.bean.HomeCampaign;
-import com.zliang.shopping.bean.HomeCategory;
 
 import java.util.List;
 
@@ -22,13 +21,12 @@ import java.util.List;
  */
 public class HomeCatgoryAdapter extends RecyclerView.Adapter<HomeCatgoryAdapter.ViewHolder> {
 
-
     private static int VIEW_TYPE_L = 0;
     private static int VIEW_TYPE_R = 1;
 
     private LayoutInflater mInflater;
     private Context mContext;
-
+    private boolean isSlideBottom;
 
     private List<HomeCampaign> mDatas;
     private OnItemClickListener mListener;
@@ -57,7 +55,13 @@ public class HomeCatgoryAdapter extends RecyclerView.Adapter<HomeCatgoryAdapter.
         Picasso.with(mContext).load(homeCampaign.getCpOne().getImgUrl()).into(viewHolder.imageViewBig);
         Picasso.with(mContext).load(homeCampaign.getCpTwo().getImgUrl()).into(viewHolder.imageViewSmallTop);
         Picasso.with(mContext).load(homeCampaign.getCpThree().getImgUrl()).into(viewHolder.imageViewSmallBottom);
+        if (i == getItemCount() - 1) {
+            isSlideBottom = true;
+        }
+    }
 
+    public boolean isSlideBottom() {
+        return isSlideBottom;
     }
 
     @Override
@@ -76,6 +80,27 @@ public class HomeCatgoryAdapter extends RecyclerView.Adapter<HomeCatgoryAdapter.
         }
 
 
+    }
+
+    public void clears() {
+        if (mDatas != null && mDatas.size() > 0) {
+            int itemCount = mDatas.size();
+            mDatas.clear();
+            notifyItemRangeChanged(0, itemCount);
+        }
+    }
+
+    public void addDatas(List<HomeCampaign> campaigns) {
+        addDatas(0, campaigns);
+    }
+
+    public void addDatas(int position, List<HomeCampaign> campaigns) {
+        if (mDatas != null) {
+            if (campaigns != null && campaigns.size() > 0) {
+                mDatas.addAll(campaigns);
+                notifyItemRangeChanged(position, campaigns.size());
+            }
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

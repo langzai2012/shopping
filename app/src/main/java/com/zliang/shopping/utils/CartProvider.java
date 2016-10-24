@@ -89,8 +89,8 @@ public class CartProvider {
         if (!TextUtils.isEmpty(json)) {
             carts = JSONUtil.fromJson(json, new TypeToken<List<ShoppingCart>>() {
             }.getType());
+            LogUtils.e("carts.size:" + carts.size());
         }
-        LogUtils.e("carts.size:" + carts.size());
         return carts;
     }
 }
