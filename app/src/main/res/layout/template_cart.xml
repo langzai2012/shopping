@@ -25,8 +25,8 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/drawee_view"
-            android:layout_width="120dp"
-            android:layout_height="130dp" />
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
 
         <LinearLayout
@@ -59,9 +59,9 @@
                 android:id="@+id/num_control"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="6dp"
                 android:layout_marginTop="10dp"
                 app:minValue="1" />
-
         </LinearLayout>
 
     </LinearLayout>
