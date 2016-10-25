@@ -14,6 +14,7 @@ import com.zliang.shopping.http.OkHttpHelper;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +103,7 @@ public class Pager {
     private void requestData() {
 
         String url = buildUrl();
-
+        LogUtils.e("url:" + url);
         httpHelper.get(url, new RequestCallback());
 
     }
@@ -146,24 +147,21 @@ public class Pager {
         private int pageIndex = 1;
         private int pageSize = 10;
 
-        private Map<String, String> params;
+        private Map<String, String> params = new HashMap<>();
 
         private Type type;
         private Context mContext;
 
         private OnPageListener onPageListener;
 
-        public Pager bulder() {
-            return null;
-        }
 
         public Builder setUrl(String url) {
             this.url = url;
             return builder;
         }
 
-        public Builder setParams(Map<String, String> params) {
-            this.params = params;
+        public Builder putParams(String key, String value) {
+            params.put(key, value);
             return builder;
         }
 
@@ -234,6 +232,7 @@ public class Pager {
         if (params.endsWith("&")) {
             params = params.substring(0, params.length() - 1);
         }
+
         return params;
     }
 
@@ -266,6 +265,7 @@ public class Pager {
             builder.pageIndex = page.getCurrentPage();
             builder.pageSize = page.getPageSize();
             builder.totalPage = page.getTotalPage();
+            LogUtils.e("page:" + page);
             showData(page.getList(), page.getTotalPage(), page.getTotalCount());
         }
 

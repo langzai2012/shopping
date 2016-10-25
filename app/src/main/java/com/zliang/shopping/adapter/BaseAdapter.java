@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zliang.shopping.utils.LogUtils;
+
 import java.util.List;
 
 /**
@@ -36,6 +38,8 @@ public abstract class BaseAdapter<T, H extends BaseViewHoloder> extends Recycler
     @Override
     public void onBindViewHolder(BaseViewHoloder holder, int position) {
         T item = getItem(position);
+        LogUtils.e("T:" + item.getClass());
+        LogUtils.e("holder:" + holder.getClass());
         convert((H) holder, item);
     }
 
@@ -74,6 +78,28 @@ public abstract class BaseAdapter<T, H extends BaseViewHoloder> extends Recycler
             if (data != null && data.size() > 0) {
                 mDatas.addAll(data);
                 this.notifyItemRangeChanged(postion, mDatas.size());
+            }
+        }
+    }
+
+    public void refreshData(List<T> list) {
+        if (list != null && list.size() > 0) {
+            clearDatas();
+            int size = list.size();
+            for (int i = 0; i < size; i++) {
+                mDatas.add(i, list.get(i));
+                notifyItemInserted(i);
+            }
+        }
+    }
+
+    public void loadMoreData(List<T> list) {
+        if (list != null && list.size() > 0) {
+            int size = list.size();
+            int begin = mDatas.size();
+            for (int i = 0; i < size; i++) {
+                mDatas.add(list.get(i));
+                notifyItemInserted(i + begin);
             }
         }
     }

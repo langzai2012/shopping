@@ -10,6 +10,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.zliang.shopping.utils.LogUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class OkHttpHelper {
             public void onResponse(Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String result = response.body().string();
+                    LogUtils.e("result:" + result);
                     if (callBack.type == String.class) {//结果需要字符串类型
                         onSuccess(response, result, callBack);
                     } else {

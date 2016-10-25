@@ -12,6 +12,7 @@ import com.zliang.shopping.R;
 import com.zliang.shopping.bean.ShoppingCart;
 import com.zliang.shopping.bean.Ware;
 import com.zliang.shopping.utils.CartProvider;
+import com.zliang.shopping.utils.LogUtils;
 import com.zliang.shopping.utils.ToastUtils;
 
 import java.util.List;
@@ -22,13 +23,14 @@ import java.util.List;
 public class HotGoodAdapter2 extends SimpleAdapter<Ware> {
     private CartProvider mCartProvider;
 
-    public HotGoodAdapter2(Context context, int layoutResId, List datas) {
-        super(context, layoutResId, datas);
+    public HotGoodAdapter2(Context context, List<Ware> datas) {
+        super(context, R.layout.template_hot_wares, datas);
         mCartProvider = new CartProvider(context);
     }
 
     @Override
     protected void convert(BaseViewHoloder viewHolder, final Ware item) {
+        LogUtils.e("BaseViewHoloder:"+viewHolder);
         SimpleDraweeView simpleDraweeView = viewHolder.getView(R.id.drawee_view);
         simpleDraweeView.setImageURI(Uri.parse(item.getImgUrl()));
         TextView text_title = viewHolder.getView(R.id.text_title);

@@ -134,7 +134,7 @@ public class HotFragment extends Fragment {
         switch (state) {
             case STATE_NORMAL:
 //                mAdapter = new HotGoodsAdapter(list);
-                mAdapter2 = new HotGoodAdapter2(getContext(), R.layout.template_hot_wares, list);
+                mAdapter2 = new HotGoodAdapter2(getContext(), list);
                 recycler_view.setAdapter(mAdapter2);
                 recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
                 recycler_view.setItemAnimator(new DefaultItemAnimator());

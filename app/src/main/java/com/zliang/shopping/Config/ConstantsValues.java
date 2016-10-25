@@ -19,5 +19,6 @@ public class ConstantsValues {
 
     public static final String CATEGORY_LIST=BASE_URL +"category/list";
 
+    public static final String WARES_CAMPAIN_LIST=BASE_URL +"wares/campaign/list";
 
 }

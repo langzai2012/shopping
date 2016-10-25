@@ -3,6 +3,7 @@ package com.zliang.shopping.http;
 import com.google.gson.internal.$Gson$Types;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.zliang.shopping.utils.LogUtils;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -25,6 +26,7 @@ public abstract class BaseCallBack<T> {
 
     public BaseCallBack() {
         type = getSuperclassTypeParameter(getClass());
+        LogUtils.e("type:" + type);
     }
 
     public abstract void onFailure(Request request, IOException e);

@@ -1,5 +1,7 @@
 package com.zliang.shopping.adapter;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -124,25 +126,55 @@ public class HomeCatgoryAdapter extends RecyclerView.Adapter<HomeCatgoryAdapter.
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.imgview_big:
-                    if (mListener != null) {
-                        mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpOne());
-                    }
-                    break;
-                case R.id.imgview_small_top:
-                    if (mListener != null) {
-                        mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpTwo());
-                    }
-                    break;
-                case R.id.imgview_small_bottom:
-                    if (mListener != null) {
-                        mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpThree());
-                    }
-                    break;
-            }
+            anim(v);
         }
+
+        private void anim(final View v) {
+            ObjectAnimator animator = ObjectAnimator.ofFloat(v, "rotationX", 0.0F, 360.0F);
+            animator.setDuration(2000);
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    switch (v.getId()) {
+                        case R.id.imgview_big:
+                            if (mListener != null) {
+                                mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpOne());
+                            }
+                            break;
+                        case R.id.imgview_small_top:
+                            if (mListener != null) {
+                                mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpTwo());
+                            }
+                            break;
+                        case R.id.imgview_small_bottom:
+                            if (mListener != null) {
+                                mListener.onItemClickListener(v, mDatas.get(getLayoutPosition()).getCpThree());
+                            }
+                            break;
+                    }
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+
+            animator.start();
+        }
+
     }
+
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;

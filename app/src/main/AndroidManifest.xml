@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test.TestActivity"  />
+        <activity android:name="com.zliang.shopping.WaresListActivity" />
+
+        <activity android:name=".test.TestActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.zliang.shopping.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.zliang.shopping.Config.ConstantsValues;
 import com.zliang.shopping.R;
+import com.zliang.shopping.WaresListActivity;
 import com.zliang.shopping.adapter.DividerItemDecortion;
 import com.zliang.shopping.adapter.HomeCatgoryAdapter;
 import com.zliang.shopping.bean.Banner;
@@ -122,7 +124,9 @@ public class HomeFragment extends Fragment {
         homeCatgoryAdapter.setOnItemClickListener(new HomeCatgoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, Campaign campaign) {
-                Toast.makeText(getActivity(), campaign.getTitle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), WaresListActivity.class);
+                intent.putExtra("campaignId", campaign.getId());
+                startActivity(intent);
             }
         });
     }
