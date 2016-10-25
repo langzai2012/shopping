@@ -56,9 +56,9 @@ public class Pager {
             @Override
             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
 
-                if (builder.pageIndex < builder.totalPage)
+                if (builder.pageIndex < builder.totalPage) {
                     loadMore();
-                else {
+                } else {
                     Toast.makeText(builder.mContext, "无更多数据", Toast.LENGTH_LONG).show();
                     materialRefreshLayout.finishRefreshLoadMore();
                     materialRefreshLayout.setLoadMore(false);
@@ -88,14 +88,22 @@ public class Pager {
         requestData();
     }
 
+    public void putParam(String key, String value) {
+        builder.params.put(key, value);
+    }
+
+    public void request() {
+        requestData();
+    }
+
     /**
      * 请求数据
      */
     private void requestData() {
 
-        String url = builder.url;
+        String url = buildUrl();
 
-        httpHelper.post(url, builder.params, new RequestCallback());
+        httpHelper.get(url, new RequestCallback());
 
     }
 
@@ -110,7 +118,6 @@ public class Pager {
         }
 
         if (STATE_NORMAL == state) {
-
             if (builder.onPageListener != null) {
                 builder.onPageListener.load(datas, totalPage, totalCount);
             }
@@ -119,18 +126,15 @@ public class Pager {
             if (builder.onPageListener != null) {
                 builder.onPageListener.refresh(datas, totalPage, totalCount);
             }
-
         } else if (STATE_MORE == state) {
-
             builder.mRefreshLayout.finishRefreshLoadMore();
             if (builder.onPageListener != null) {
                 builder.onPageListener.loadMore(datas, totalPage, totalCount);
             }
-
         }
     }
 
-    private static class Builder {
+    public static class Builder {
         private String url;
 
         private MaterialRefreshLayout mRefreshLayout;
@@ -204,6 +208,33 @@ public class Pager {
             }
         }
 
+    }
+
+    private String buildUrl() {
+        return builder.url + "?" + buildParams();
+    }
+
+    /**
+     * 构建参数
+     *
+     * @return
+     */
+    private String buildParams() {
+        Map<String, String> paramsMap = builder.params;
+        paramsMap.put("curPage", builder.pageIndex + "");
+        paramsMap.put("pageSize", builder.pageSize + "");
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
+            builder.append(entry.getKey() + "=" + entry.getValue());
+            builder.append("&");
+        }
+
+        String params = builder.toString();
+
+        if (params.endsWith("&")) {
+            params = params.substring(0, params.length() - 1);
+        }
+        return params;
     }
 
 
