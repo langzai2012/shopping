@@ -6,8 +6,13 @@ import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.zliang.shopping.bean.Page;
+import com.zliang.shopping.http.BaseCallBack;
 import com.zliang.shopping.http.OkHttpHelper;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +42,6 @@ public class Pager {
     }
 
     private void initRefreshLayout() {
-
 
         builder.mRefreshLayout.setLoadMore(builder.canLoadMore);
 
@@ -89,11 +93,9 @@ public class Pager {
      */
     private void requestData() {
 
-
         String url = builder.url;
 
-        //TODO
-        //httpHelper.post(url, builder.params, new RequestCallBack(builder.mContext));
+        httpHelper.post(url, builder.params, new RequestCallback());
 
     }
 
@@ -140,7 +142,7 @@ public class Pager {
         private int pageIndex = 1;
         private int pageSize = 10;
 
-        private Map<String, Object> params;
+        private Map<String, String> params;
 
         private Type type;
         private Context mContext;
@@ -156,7 +158,7 @@ public class Pager {
             return builder;
         }
 
-        public Builder setParams(Map<String, Object> params) {
+        public Builder setParams(Map<String, String> params) {
             this.params = params;
             return builder;
         }
@@ -214,4 +216,32 @@ public class Pager {
         void loadMore(List<T> datas, int totalPage, int totalCount);
 
     }
+
+
+    class RequestCallback<T> extends BaseCallBack<Page<T>> {
+
+        @Override
+        public void onFailure(Request request, IOException e) {
+
+        }
+
+        @Override
+        public void onRequestBefore(Request request) {
+
+        }
+
+        @Override
+        public void onSuccess(Response response, Page<T> page) {
+            builder.pageIndex = page.getCurrentPage();
+            builder.pageSize = page.getPageSize();
+            builder.totalPage = page.getTotalPage();
+            showData(page.getList(), page.getTotalPage(), page.getTotalCount());
+        }
+
+        @Override
+        public void onError(Response response, int responseCode, Exception e) {
+
+        }
+    }
+
 }
