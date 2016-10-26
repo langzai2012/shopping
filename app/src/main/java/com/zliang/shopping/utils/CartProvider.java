@@ -66,8 +66,10 @@ public class CartProvider {
     private void listToSparse() {
         List<ShoppingCart> carts = getDataFromLocal();
         if (datas != null) {
-            for (ShoppingCart cart : carts) {
-                datas.put(Integer.valueOf(String.valueOf(cart.getId())), cart);
+            if (carts != null && carts.size() > 0) {
+                for (ShoppingCart cart : carts) {
+                    datas.put(Integer.valueOf(String.valueOf(cart.getId())), cart);
+                }
             }
         }
         LogUtils.e("datas.size:" + datas.size());

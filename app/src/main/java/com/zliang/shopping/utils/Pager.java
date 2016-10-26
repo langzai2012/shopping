@@ -120,6 +120,8 @@ public class Pager {
 
         if (STATE_NORMAL == state) {
             if (builder.onPageListener != null) {
+                T t = datas.get(0);
+                LogUtils.e("t:" + t.getClass());
                 builder.onPageListener.load(datas, totalPage, totalCount);
             }
         } else if (STATE_REFREH == state) {
@@ -249,6 +251,11 @@ public class Pager {
 
 
     class RequestCallback<T> extends BaseCallBack<Page<T>> {
+
+        public RequestCallback() {
+            super();
+            super.type = builder.type;
+        }
 
         @Override
         public void onFailure(Request request, IOException e) {

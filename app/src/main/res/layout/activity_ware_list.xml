@@ -21,12 +21,16 @@
 
     <!-- tabMode="fixed|scrollable"  所有的tab会居中显示，
     是不可滑动的scrollable时，所有的tab会靠左显示，当tab数量很多时，
-    就会呈现滑动的效果，这对适配小屏幕手机至关重要。-->
+    就会呈现滑动的效果，这对适配小屏幕手机至关重要。
+      tabGravity:控制tab是否占满屏幕宽度
+    -->
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
+        style="@style/customTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabGravity="center"
+        android:fillViewport="true"
+        app:tabGravity="fill"
         app:tabMode="fixed">
 
     </android.support.design.widget.TabLayout>

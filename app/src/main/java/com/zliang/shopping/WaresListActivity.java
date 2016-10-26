@@ -16,13 +16,10 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.zliang.shopping.Config.ConstantsValues;
 import com.zliang.shopping.adapter.DividerItemDecoration;
 import com.zliang.shopping.adapter.HotGoodAdapter2;
-import com.zliang.shopping.bean.HotGoods;
 import com.zliang.shopping.bean.Page;
 import com.zliang.shopping.bean.Ware;
 import com.zliang.shopping.utils.LogUtils;
 import com.zliang.shopping.utils.Pager;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -92,7 +89,7 @@ public class WaresListActivity extends AppCompatActivity implements Pager.OnPage
 
         TabLayout.Tab priceTab = mTabLayout.newTab();
         priceTab.setText("价格");
-        tab.setTag(PRICE);
+        priceTab.setTag(PRICE);
         mTabLayout.addTab(priceTab);
 
         mTabLayout.setOnTabSelectedListener(this);
@@ -103,7 +100,7 @@ public class WaresListActivity extends AppCompatActivity implements Pager.OnPage
     @Override
     public void load(List<Ware> datas, int totalPage, int totalCount) {
         mTxtSummary.setText("共有" + totalCount + "件商品");
-        LogUtils.e("datas:" + datas.toString());
+        LogUtils.e("load datas.size:" + datas.size());
         if (mWaresAdapter == null) {
             mWaresAdapter = new HotGoodAdapter2(this, datas);
             mRecylerView.setAdapter(mWaresAdapter);

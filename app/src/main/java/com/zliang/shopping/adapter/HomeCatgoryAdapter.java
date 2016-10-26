@@ -130,8 +130,8 @@ public class HomeCatgoryAdapter extends RecyclerView.Adapter<HomeCatgoryAdapter.
         }
 
         private void anim(final View v) {
-            ObjectAnimator animator = ObjectAnimator.ofFloat(v, "rotationX", 0.0F, 360.0F);
-            animator.setDuration(2000);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(v, "rotationX", 0.0F, 180.0F, 0);
+            animator.setDuration(200);
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
