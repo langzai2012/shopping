@@ -30,23 +30,30 @@ public class HotGoodAdapter2 extends SimpleAdapter<Ware> {
 
     @Override
     protected void convert(BaseViewHoloder viewHolder, final Ware item) {
-        LogUtils.e("BaseViewHoloder:"+viewHolder);
+        LogUtils.e("BaseViewHoloder:" + viewHolder);
         SimpleDraweeView simpleDraweeView = viewHolder.getView(R.id.drawee_view);
         simpleDraweeView.setImageURI(Uri.parse(item.getImgUrl()));
         TextView text_title = viewHolder.getView(R.id.text_title);
-        text_title.setText(item.getName());
+        if (text_title != null) {
+            text_title.setText(item.getName());
+        }
         TextView text_price = viewHolder.getView(R.id.text_price);
-        text_price.setText(item.getPrice() + "");
 
+        if (text_price != null) {
+            text_price.setText(item.getPrice() + "");
+        }
         Button btnAdd = viewHolder.getView(R.id.btn_add);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShoppingCart cart = convertData(item);
-                mCartProvider.put(cart);
-                ToastUtils.show(mContext, "已添加到购物车", Toast.LENGTH_LONG);
-            }
-        });
+        if (btnAdd != null) {
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShoppingCart cart = convertData(item);
+                    mCartProvider.put(cart);
+                    ToastUtils.show(mContext, "已添加到购物车", Toast.LENGTH_LONG);
+                }
+            });
+        }
+
     }
 
     private ShoppingCart convertData(Ware ware) {
@@ -57,6 +64,10 @@ public class HotGoodAdapter2 extends SimpleAdapter<Ware> {
         cart.setPrice(ware.getPrice());
         cart.setName(ware.getName());
         return cart;
+    }
 
+    public void resetLayout(int layoutId) {
+        this.mLayoutResId = layoutId;
+        notifyItemChanged(0, getDatas().size());
     }
 }

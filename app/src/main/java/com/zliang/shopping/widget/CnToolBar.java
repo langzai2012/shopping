@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.zliang.shopping.R;
+import com.zliang.shopping.utils.DisplayUtil;
 
 /**
  * Created by Administrator on 2016/10/7 0007.
@@ -41,7 +42,7 @@ public class CnToolBar extends Toolbar {
         initView();
 
         //设置toolbar 左右间距
-        setContentInsetsRelative(10, 10);
+        setContentInsetsRelative(10, 20);
         if (attrs != null) {
             TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
                     R.styleable.CnToolBar, defStyleAttr, 0);
@@ -122,10 +123,15 @@ public class CnToolBar extends Toolbar {
 
     }
 
-    private void setRightButtonIcon(Drawable icon) {
+    public void setRightButtonIcon(Drawable icon) {
         if (mRightButton != null) {
             mRightButton.setBackgroundDrawable(icon);
             mRightButton.setVisibility(View.VISIBLE);
         }
     }
+
+    public void setRightButtonIcon(int iconId) {
+        setRightButtonIcon(getResources().getDrawable(iconId));
+    }
+
 }

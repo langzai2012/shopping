@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cjj.MaterialRefreshLayout;
@@ -20,13 +22,14 @@ import com.zliang.shopping.bean.Page;
 import com.zliang.shopping.bean.Ware;
 import com.zliang.shopping.utils.LogUtils;
 import com.zliang.shopping.utils.Pager;
+import com.zliang.shopping.widget.CnToolBar;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/24 0024.
  */
-public class WaresListActivity extends AppCompatActivity implements Pager.OnPageListener<Ware>, TabLayout.OnTabSelectedListener {
+public class WaresListActivity extends AppCompatActivity implements Pager.OnPageListener<Ware>, TabLayout.OnTabSelectedListener, View.OnClickListener {
 
     @ViewInject(R.id.tab_layout)
     private TabLayout mTabLayout;
@@ -39,6 +42,9 @@ public class WaresListActivity extends AppCompatActivity implements Pager.OnPage
     @ViewInject(R.id.txt_summary)
     private TextView mTxtSummary;
 
+    @ViewInject(R.id.toolbar)
+    private CnToolBar mToolBar;
+
     private long campaignId = 0;
     private int orderBy = 0;
     private HotGoodAdapter2 mWaresAdapter;
@@ -49,14 +55,30 @@ public class WaresListActivity extends AppCompatActivity implements Pager.OnPage
     public final int SALE = 1;
     public final int PRICE = 2;
 
+    public final int ACTION_LIST = 0;
+    public final int ACTION_GRID = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ware_list);
         ViewUtils.inject(this);
+        intToolBar();
         initTab();
         getData();
+    }
+
+    private void intToolBar() {
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mToolBar.setRightButtonIcon(R.drawable.icon_list_32);
+        mToolBar.getRightButton().setTag(ACTION_LIST);//默认是列表
+        mToolBar.setRightButtonIconListener(this);
     }
 
     private void getData() {
@@ -138,5 +160,23 @@ public class WaresListActivity extends AppCompatActivity implements Pager.OnPage
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        int action = (int) v.getTag();
+        if (action == ACTION_LIST) {
+            mToolBar.getRightButton().setTag(ACTION_GRID);
+            mToolBar.setRightButtonIcon(R.drawable.icon_grid_32);
+            mWaresAdapter.resetLayout(R.layout.templeate_grid_ware);
+            mRecylerView.setLayoutManager(new GridLayoutManager(this, 2));
+        } else if (action == ACTION_GRID) {
+            mToolBar.getRightButton().setTag(ACTION_LIST);
+            mToolBar.setRightButtonIcon(R.drawable.icon_list_32);
+            mWaresAdapter.resetLayout(R.layout.template_hot_wares);
+            mRecylerView.setLayoutManager(new LinearLayoutManager(this));
+            mRecylerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+            mRecylerView.setItemAnimator(new DefaultItemAnimator());
+        }
     }
 }

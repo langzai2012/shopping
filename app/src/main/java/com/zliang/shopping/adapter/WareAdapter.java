@@ -23,10 +23,10 @@ public class WareAdapter extends SimpleAdapter<Ware> {
     protected void convert(BaseViewHoloder viewHolder, Ware item) {
         SimpleDraweeView simpleDraweeView = viewHolder.getView(R.id.drawee_view);
         simpleDraweeView.setImageURI(Uri.parse(item.getImgUrl()));
-        TextView title = viewHolder.getView(R.id.tv_title);
+        TextView title = viewHolder.getView(R.id.text_title);
         title.setText(item.getName());
-        TextView price = viewHolder.getView(R.id.tv_price);
-        price.setText(item.getPrice()+"");
+        TextView price = viewHolder.getView(R.id.text_price);
+        price.setText(item.getPrice() + "");
     }
 
 
